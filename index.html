@@ -3,216 +3,1211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الكنانة التعليمية | مهد الحضارات</title>
+    <title>أسرار الكنانة | رحلة تفاعلية</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Teko:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --pharaoh-gold: #D4AF37;
-            --royal-blue: #002366;
-            --papyrus-bg: #f2e8c4;
-            --dark-stone: #1a1a1a;
+            --gold: #FFD700;
+            --electrum: #C5B358;
+            --lapis: #003366;
+            --dark-lapis: #002244;
+            --sand: #DEB887;
+            --night-sky: #0a0a1a;
+            --papyrus-light: #f4e4c1;
         }
 
         body {
-            background-color: var(--dark-stone);
-            color: white;
+            background: var(--night-sky);
+            color: #fff;
             font-family: 'Cairo', sans-serif;
-            background-image: url('https://www.transparenttextures.com/patterns/black-linen.png'); /* تأثير ملمس الحجر */
+            overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, .navbar-brand {
-            font-family: 'Amiri', serif;
-            color: var(--pharaoh-gold) !important;
+        /* Stars Background */
+        .stars, .twinkling, .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        /* --- Navbar --- */
-        .navbar {
-            background: rgba(0, 35, 102, 0.95) !important;
-            border-bottom: 3px solid var(--pharaoh-gold);
+        .stars {
+            background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
+            z-index: -3;
         }
 
-        /* --- Hero Section --- */
-        .hero {
-            height: 60vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1500&q=80');
-            background-size: cover;
-            background-position: center;
+        .twinkling {
+            background: transparent url('https://i.imgur.com/XYMF5ca.png') repeat top center;
+            z-index: -2;
+            animation: move-twink-back 200s linear infinite;
+        }
+
+        @keyframes move-twink-back {
+            from {background-position: 0 0;}
+            to {background-position: -10000px 5000px;}
+        }
+
+        /* Ankh loading animation */
+        .ankh-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--night-sky);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        .ankh-loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ankh {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--gold);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        .ankh::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 80px;
+            background: var(--gold);
+            bottom: -40px;
+            left: 32px;
+            animation: extend 3s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        @keyframes extend {
+            0%, 100% { height: 80px; }
+            50% { height: 100px; }
+        }
+
+        /* Floating Hieroglyphs */
+        .hieroglyph-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            font-size: 24px;
+            color: var(--gold);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            user-select: none;
+        }
+
+        /* Navbar - Pharaoh's Throne */
+        .throne-nav {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,51,102,0.8) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .throne-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,215,0,0.1) 2px, rgba(255,215,0,0.1) 4px);
+            pointer-events: none;
+        }
+
+        .pharaoh-name {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+            display: inline-block;
+        }
+
+        .pharaoh-name::before,
+        .pharaoh-name::after {
+            content: '𓋴𓂋𓏏';
+            font-size: 1.5rem;
+            margin: 0 10px;
+            opacity: 0.7;
+        }
+
+        /* Hero Section - Interactive Portal */
+        .portal-hero {
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            border-bottom: 5px double var(--pharaoh-gold);
-        }
-
-        /* --- Lesson Cards --- */
-        .section-title {
-            padding: 20px 50px;
-            border-right: 5px solid var(--pharaoh-gold);
-            margin: 30px 0;
-            background: linear-gradient(90deg, rgba(212,175,55,0.1), transparent);
-        }
-
-        .lesson-card {
-            background: #222;
-            border: 1px solid #444;
-            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
             cursor: pointer;
+        }
+
+        .portal-circle {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--gold), var(--lapis), var(--electrum), var(--gold));
+            animation: rotate 20s linear infinite;
+            position: relative;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+
+        .portal-inner {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,215,0,0.8), rgba(0,51,102,0.9));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 50px var(--gold);
+            transition: transform 0.5s ease;
+        }
+
+        .portal-hero:hover .portal-inner {
+            transform: scale(1.1);
+            box-shadow: 0 0 100px var(--gold);
+        }
+
+        .portal-inner h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255,215,0,0.5);
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* 3D Cards */
+        .book-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .book-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .book-3d:hover .book-card {
+            transform: rotateY(180deg);
+        }
+
+        .book-front, .book-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .book-front {
+            background: linear-gradient(135deg, var(--lapis), var(--dark-lapis));
+            border: 2px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-back {
+            background: var(--papyrus-light);
+            color: var(--dark-lapis);
+            transform: rotateY(180deg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+
+        .book-spine {
+            position: absolute;
+            width: 40px;
+            height: 100%;
+            left: -20px;
+            background: linear-gradient(to right, var(--electrum), var(--gold));
+            transform: rotateY(90deg) translateZ(-20px);
+            border-radius: 5px 0 0 5px;
+        }
+
+        .book-cover-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: sepia(50%) brightness(0.8);
+        }
+
+        /* Interactive Timeline */
+        .timeline-container {
+            position: relative;
+            padding: 40px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--dark-lapis);
+        }
+
+        .timeline-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline-container::-webkit-scrollbar-track {
+            background: var(--dark-lapis);
+        }
+
+        .timeline-container::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        .timeline-slider {
+            display: inline-flex;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .timeline-item {
+            width: 200px;
+            background: rgba(0,51,102,0.7);
+            backdrop-filter: blur(5px);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: normal;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: var(--lapis);
+            border-color: var(--electrum);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* Papyrus Quiz with Animation */
+        .sacred-papyrus {
+            background: var(--papyrus-light);
+            color: #333;
+            padding: 40px;
+            border-radius: 20px 20px 5px 5px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform-origin: top;
+            animation: unroll 1s ease-out;
+        }
+
+        @keyframes unroll {
+            from { transform: scaleY(0); opacity: 0; }
+            to { transform: scaleY(1); opacity: 1; }
+        }
+
+        .sacred-papyrus::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: repeating-linear-gradient(90deg, transparent, transparent 5px, var(--gold) 5px, var(--gold) 10px);
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateX(-10px);
+            background: rgba(255,255,255,0.7);
+        }
+
+        /* Teacher Dashboard - Hologram Effect */
+        .hologram-panel {
+            background: rgba(0,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0,255,255,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0,255,255,0.2);
             position: relative;
             overflow: hidden;
         }
 
-        .lesson-card:hover {
-            border-color: var(--pharaoh-gold);
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        .hologram-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,255,255,0.1) 10px, rgba(0,255,255,0.1) 20px);
+            animation: scan 10s linear infinite;
         }
 
-        .lesson-card img {
-            filter: sepia(30%);
+        @keyframes scan {
+            from { transform: translateX(-50%) translateY(-50%) rotate(45deg); }
+            to { transform: translateX(50%) translateY(50%) rotate(45deg); }
         }
 
-        /* --- Quiz Section (The Papyrus) --- */
-        .quiz-container {
-            background: var(--papyrus-bg);
-            color: #333;
-            padding: 30px;
+        /* Achievement Badges */
+        .badge-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .achievement-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--electrum));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--dark-lapis);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .achievement-badge:hover {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        .achievement-badge[data-unlocked="false"] {
+            filter: grayscale(100%);
+            opacity: 0.3;
+        }
+
+        .badge-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-lapis);
+            color: var(--gold);
+            padding: 5px 10px;
             border-radius: 5px;
-            border: 15px solid transparent;
-            border-image: url('https://www.transparenttextures.com/patterns/gplay.png') 30 stretch;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            border: 1px solid var(--gold);
         }
 
-        .btn-gold {
-            background: var(--pharaoh-gold);
-            color: var(--royal-blue);
-            font-weight: bold;
-            border: none;
+        .achievement-badge:hover .badge-tooltip {
+            opacity: 1;
         }
 
-        /* --- Grades Table --- */
-        .grade-badge {
-            background: var(--royal-blue);
-            color: var(--pharaoh-gold);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--pharaoh-gold);
+        /* Progress Bar - Nile Level */
+        .nile-level {
+            height: 30px;
+            background: linear-gradient(90deg, #0066cc, #00ccff);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .nile-level::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2s linear infinite;
+        }
+
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        /* Sound Controls */
+        .sound-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .sound-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--lapis);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 var(--gold); }
+            70% { box-shadow: 0 0 0 10px rgba(255,215,0,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+        }
+
+        .sound-btn:hover {
+            transform: scale(1.1);
+            background: var(--gold);
+            color: var(--lapis);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .portal-inner h1 {
+                font-size: 2rem;
+            }
+            
+            .portal-circle, .portal-inner {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .portal-inner {
+                width: 250px;
+                height: 250px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Ankh Loader -->
+    <div class="ankh-loader" id="loader">
+        <div class="ankh"></div>
+    </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <!-- Background Elements -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="hieroglyph-bg">
+        <span>𓋴𓂋𓏏</span> <span>𓇓𓏏𓊵</span> <span>𓊹𓊹𓊹</span> <span>𓂀</span> <span>𓆣</span> <span>𓃀</span>
+        <span>𓋴𓂋𓏏</span> <span>𓇓𓏏𓊵</span> <span>𓊹𓊹𓊹</span> <span>𓂀</span> <span>𓆣</span> <span>𓃀</span>
+    </div>
+
+    <!-- Sound Control -->
+    <div class="sound-control">
+        <div class="sound-btn" onclick="toggleSound()" id="soundToggle">
+            <i class="fas fa-volume-up"></i>
+        </div>
+    </div>
+
+    <!-- Audio Elements (would need actual files) -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="ankhSound">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Pharaoh's Throne Navbar -->
+    <nav class="throne-nav navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-ankh"></i> منصة الكنانة</a>
-            <div class="ms-auto text-light">
-                <span id="teacher-view" class="btn btn-sm btn-outline-warning">لوحة المعلم</span>
+            <a class="navbar-brand pharaoh-name" href="#">
+                <span class="d-none d-sm-inline">𓋴𓂋𓏏</span> 
+                أسرار الكنانة 
+                <span class="d-none d-sm-inline">𓋴𓂋𓏏</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#portal" onclick="playSound('ankhSound')">
+                            <i class="fas fa-ankh"></i> البوابة
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#library" onclick="playSound('ankhSound')">
+                            <i class="fas fa-book"></i> مكتبة المعرفة
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#timeline" onclick="playSound('ankhSound')">
+                            <i class="fas fa-clock"></i> خط الزمن
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-crown"></i> ركن الحكام
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#" onclick="openTeacherThrone()">👑 عرش المعلم</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="openStudentChamber()">📜 حجرة الطالب</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="showAchievements()">🏆 الإنجازات</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="container">
-            <h1 class="display-2">اسرار الأجداد</h1>
-            <p class="lead">استكشف حضارة ٧٠٠٠ عام بأسلوب القرن الحادي والعشرين</p>
-            <a href="#lessons" class="btn btn-gold btn-lg mt-3">ابدأ الرحلة الآن</a>
+    <!-- Interactive Portal Hero -->
+    <section id="portal" class="portal-hero" onclick="enterPortal()">
+        <div class="portal-circle"></div>
+        <div class="portal-inner">
+            <h1>اِدْخُلِ الْعَالَمَ الْآخَرَ</h1>
+            <p class="lead">اضغط لبدء الرحلة 𓅃</p>
+            <div class="badge-container justify-content-center mt-3">
+                <div class="achievement-badge" data-unlocked="true">
+                    <i class="fas fa-eye"></i>
+                    <span class="badge-tooltip">حكيم مبتدئ</span>
+                </div>
+                <div class="achievement-badge" data-unlocked="false">
+                    <i class="fas fa-star"></i>
+                    <span class="badge-tooltip">نجم المعرفة</span>
+                </div>
+            </div>
         </div>
-    </header>
+    </section>
 
-    <div class="container mt-5" id="lessons">
-        <h2 class="section-title">مكتبة البرديات (الدروس)</h2>
+    <!-- 3D Library Section -->
+    <section id="library" class="container mt-5">
+        <h2 class="text-center mb-4" style="color: var(--gold); font-weight: 900;">𓏞 مكتبة الأجداد 𓏞</h2>
+        <p class="text-center text-light mb-5">مرر فوق الكتب لتقلب صفحاتها... أو لترى ما تخفيه</p>
+        
         <div class="row g-4">
-            <div class="col-md-3">
-                <div class="card lesson-card">
-                    <img src="https://images.unsplash.com/photo-1539130545229-23136666993a?w=400" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h6>عظمة بناة الأهرام</h6>
-                        <small class="text-muted">تاريخ - الصف الأول</small>
+            <div class="col-md-4">
+                <div class="book-3d">
+                    <div class="book-card">
+                        <div class="book-front">
+                            <img src="https://images.unsplash.com/photo-1539130545229-23136666993a?w=400" class="book-cover-image">
+                            <div class="p-3">
+                                <h5 class="text-gold">لغز الهرم الأكبر</h5>
+                                <small class="text-light-50">رياضيات الفراعنة</small>
+                            </div>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-back">
+                            <h5 class="text-dark">هل تعلم؟</h5>
+                            <p class="small">الهرم الأكبر يتجه بدقة متناهية إلى الاتجاهات الأصلية الأربعة بخطأ أقل من 0.05 درجة!</p>
+                            <button class="btn btn-sm" style="background: var(--gold); color: var(--lapis);" onclick="unlockAchievement('star')">اكتشف السر</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card lesson-card">
-                    <img src="https://images.unsplash.com/photo-1599933334297-51644b4e5433?w=400" class="card-img-top">
-                    <div class="card-body text-center">
-                        <h6>نهر النيل: شريان الحياة</h6>
-                        <small class="text-muted">جغرافيا - الصف الثاني</small>
+            <div class="col-md-4">
+                <div class="book-3d">
+                    <div class="book-card">
+                        <div class="book-front">
+                            <img src="https://images.unsplash.com/photo-1599933334297-51644b4e5433?w=400" class="book-cover-image">
+                            <div class="p-3">
+                                <h5 class="text-gold">أسرار البردي</h5>
+                                <small class="text-light-50">الطب في مصر القديمة</small>
+                            </div>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-back">
+                            <h5 class="text-dark">مذهل!</h5>
+                            <p>بردية إدوين سميث تشرح 48 حالة جراحية بتفاصيل دقيقة جداً، وكأنها كتبت اليوم!</p>
+                            <button class="btn btn-sm" style="background: var(--gold); color: var(--lapis);">اقرأ البردية</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="book-3d">
+                    <div class="book-card">
+                        <div class="book-front">
+                            <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400" class="book-cover-image">
+                            <div class="p-3">
+                                <h5 class="text-gold">نهر الخلود</h5>
+                                <small class="text-light-50">جغرافيا النيل</small>
+                            </div>
+                            <div class="book-spine"></div>
+                        </div>
+                        <div class="book-back">
+                            <h5 class="text-dark">معلومة جغرافية</h5>
+                            <p>النيل يجري من الجنوب إلى الشمال عكس معظم أنهار العالم، وكأنه يتحدى الطبيعة!</p>
+                            <button class="btn btn-sm" style="background: var(--gold); color: var(--lapis);">استكشف</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-    </div>
-
-    <div class="container mt-5 mb-5">
-        <h2 class="section-title">اختبار ريشة "ماعت" (التقييم)</h2>
-        <div class="quiz-container">
-            <h4 class="mb-4 text-center">أثبت جدارتك يا كاتب المستقبل</h4>
-            <form id="pharaohQuiz">
-                <div class="mb-4">
-                    <label class="fw-bold">١. من هو الملك الذي وحد القطرين؟</label><br>
-                    <input type="radio" name="q1" value="no"> رمسيس 
-                    <input type="radio" name="q1" value="yes" class="ms-3"> مينا (نعرمر)
-                    <input type="radio" name="q1" value="no" class="ms-3"> تحتمس
-                </div>
-                <div class="mb-4">
-                    <label class="fw-bold">٢. أي من هذه المحافظات تطل على البحر الأحمر؟</label><br>
-                    <input type="radio" name="q2" value="yes"> الغردقة 
-                    <input type="radio" name="q2" value="no" class="ms-3"> القاهرة
-                    <input type="radio" name="q2" value="no" class="ms-3"> المنيا
-                </div>
-                <button type="button" class="btn btn-gold w-100" onclick="submitExam()">تسجيل النتيجة في السجل الملكي</button>
-            </form>
         </div>
-    </div>
+    </section>
 
-    <div class="container mb-5">
-        <h2 class="section-title">سجل رصد الدرجات (للمعلم والطالب)</h2>
-        <div class="table-responsive bg-dark p-3 rounded border border-warning">
-            <table class="table table-dark table-hover">
-                <thead>
-                    <tr>
-                        <th>اسم الطالب</th>
-                        <th>الاختبار</th>
-                        <th>الدرجة</th>
-                        <th>الحالة</th>
-                    </tr>
-                </thead>
-                <tbody id="gradeTable">
-                    </tbody>
-            </table>
+    <!-- Interactive Timeline -->
+    <section id="timeline" class="container mt-5">
+        <h2 class="text-center mb-4" style="color: var(--gold);">𓆣 رحلة عبر الزمن 𓆣</h2>
+        <p class="text-center text-light mb-3">اسحب الشريط الزمني لاكتشاف العصور</p>
+        
+        <div class="timeline-container">
+            <div class="timeline-slider">
+                <div class="timeline-item" onclick="jumpToYear(-3100)">
+                    <div class="timeline-year">𓃒 3100 ق.م</div>
+                    <p>توحيد القطرين</p>
+                </div>
+                <div class="timeline-item" onclick="jumpToYear(-2575)">
+                    <div class="timeline-year">𓉭 2575 ق.م</div>
+                    <p>عصر بناة الأهرام</p>
+                </div>
+                <div class="timeline-item" onclick="jumpToYear(-1500)">
+                    <div class="timeline-year">𓋴𓂋𓏏 1500 ق.م</div>
+                    <p>الإمبراطورية المصرية</p>
+                </div>
+                <div class="timeline-item" onclick="jumpToYear(-1336)">
+                    <div class="timeline-year">𓁐 1336 ق.م</div>
+                    <p>عصر توت عنخ آمون</p>
+                </div>
+                <div class="timeline-item" onclick="jumpToYear(-1279)">
+                    <div class="timeline-year">𓌢𓌢𓌢 1279 ق.م</div>
+                    <p>رمسيس الثاني</p>
+                </div>
+                <div class="timeline-item" onclick="jumpToYear(-332)">
+                    <div class="timeline-year">𓃭 332 ق.م</div>
+                    <p>العهد اليوناني</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dynamic Year Display -->
+        <div class="text-center mt-3" id="currentYear" style="font-size: 1.5rem; color: var(--electrum);">
+            𓋴𓂋𓏏 أنت في العام: <span id="yearDisplay">2024</span> م
+        </div>
+    </section>
+
+    <!-- Sacred Papyrus Quiz -->
+    <section class="container mt-5 mb-5">
+        <h2 class="text-center mb-4" style="color: var(--gold);">𓏏𓏭𓊖 اختبار "وزير الإله" 𓏏𓏭𓊖</h2>
+        
+        <div class="sacred-papyrus" id="quizPapyrus">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="mb-4" style="color: var(--lapis);">𓂀 أثبت جدارتك لتحكم مع الآلهة</h4>
+                    
+                    <div class="question-card">
+                        <label class="fw-bold">١. من هو الفرعون الذي حاول توحيد الآلهة في إله واحد؟</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q1" value="wrong">
+                            <label class="form-check-label">رمسيس الثاني</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q1" value="correct">
+                            <label class="form-check-label">أخناتون</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q1" value="wrong">
+                            <label class="form-check-label">تحتمس الثالث</label>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <label class="fw-bold">٢. ما هي أقدم بردية طبية في التاريخ؟</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q2" value="wrong">
+                            <label class="form-check-label">بردية إيبرس</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q2" value="wrong">
+                            <label class="form-check-label">بردية لندن</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q2" value="correct">
+                            <label class="form-check-label">بردية كاهون</label>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <label class="fw-bold">٣. أي من هذه المعابد ليس في الأقصر؟</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q3" value="wrong">
+                            <label class="form-check-label">معبد الكرنك</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q3" value="wrong">
+                            <label class="form-check-label">معبد الأقصر</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="q3" value="correct">
+                            <label class="form-check-label">معبد أبو سمبل</label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn w-100 mt-3" style="background: var(--lapis); color: var(--gold); border: 2px solid var(--gold);" onclick="gradeQuiz()">
+                        <i class="fas fa-scale-balanced"></i> وزن الروح مع ريشة ماعت
+                    </button>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="hologram-panel" style="height: 100%;">
+                        <h5 class="text-center" style="color: var(--gold);">𓋴𓂋𓏏 سجل الخلود</h5>
+                        <div class="text-center mb-3">
+                            <div class="achievement-badge mx-auto" data-unlocked="true">
+                                <i class="fas fa-scroll"></i>
+                            </div>
+                        </div>
+                        <div class="nile-level mb-3" style="width: 100%;">
+                            <div class="nile-level" id="knowledgeLevel" style="width: 30%;"></div>
+                        </div>
+                        <p class="small text-center" style="color: cyan;">مستوى المعرفة: <span id="knowledgePercent">30%</span></p>
+                        
+                        <div class="badge-container" id="achievementsList">
+                            <!-- Filled by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher's Hologram Dashboard -->
+    <section class="container mt-5 mb-5" id="teacherDash" style="display: none;">
+        <h2 class="text-center mb-4" style="color: var(--gold);">𓋴𓂋𓏏 عرش المعلم التفاعلي 𓋴𓂋𓏏</h2>
+        
+        <div class="hologram-panel">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-gold">📊 تقدم الطلاب (فيزياء فلكورية)</h5>
+                    <canvas id="studentChart" width="400" height="200"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-gold">🏆 أحدث الإنجازات</h5>
+                    <ul class="list-group list-group-flush bg-transparent" id="achievementFeed">
+                        <li class="list-group-item bg-transparent text-light">✦ طالب مجهول حصل على شارة "حكيم النيل"</li>
+                        <li class="list-group-item bg-transparent text-light">✦ 3 طلاب فتحوا خريطة الكنز المخفية</li>
+                        <li class="list-group-item bg-transparent text-light">✦ تم فتح باب جديد في الهرم الأكبر</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h5 class="text-gold">📝 سجل الدرجات المباشر</h5>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th>الطالب</th>
+                                    <th>الاختبار</th>
+                                    <th>الدرجة</th>
+                                    <th>الشارات</th>
+                                    <th>الإجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gradeTableHologram">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <button class="btn btn-outline-info" onclick="closeTeacherThrone()">
+                    <i class="fas fa-arrow-left"></i> العودة إلى البوابة
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Chamber -->
+    <section class="container mt-5 mb-5" id="studentChamber" style="display: none;">
+        <h2 class="text-center mb-4" style="color: var(--gold);">𓋴𓂋𓏏 حجرة الطالب الخاصة 𓋴𓂋𓏏</h2>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card bg-dark border-gold">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-graduate fa-3x" style="color: var(--gold);"></i>
+                        <h5 class="text-gold mt-2">بطاقة هوية الكاتب</h5>
+                        <p>الاسم: <span id="studentName">كاتب متدرب</span><br>
+                           المستوى: <span id="studentLevel">البداية</span><br>
+                           النقاط: <span id="studentPoints">0</span> 𓋴𓂋𓏏</p>
+                        <div class="nile-level" style="width: 100%;">
+                            <div id="studentProgress" style="width: 0%; height: 100%; background: var(--gold);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card bg-dark border-gold">
+                    <div class="card-body">
+                        <h5 class="text-gold">مهامك اليومية (وصايا الإله)</h5>
+                        <ul class="list-group list-group-flush bg-transparent">
+                            <li class="list-group-item bg-transparent text-light">
+                                <input type="checkbox" onchange="updateTask(this)"> اقرأ درس "لغز الهرم"
+                            </li>
+                            <li class="list-group-item bg-transparent text-light">
+                                <input type="checkbox" onchange="updateTask(this)"> أكمل اختبار الوزير
+                            </li>
+                            <li class="list-group-item bg-transparent text-light">
+                                <input type="checkbox" onchange="updateTask(this)"> اكتشف 3 برديات
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-3">
+                            <button class="btn btn-gold w-100" onclick="claimReward()">
+                                <i class="fas fa-gift"></i> استلم مكافأة اليوم (٥٠ نقطة)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-light" onclick="closeStudentChamber()">
+                <i class="fas fa-arrow-left"></i> العودة إلى البوابة
+            </button>
+        </div>
+    </section>
+
+    <!-- Achievement Modal -->
+    <div class="modal fade" id="achievementModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header border-gold">
+                    <h5 class="modal-title text-gold">🏆 إنجاز جديد!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-crown fa-4x" style="color: var(--gold);"></i>
+                    <h4 class="mt-3" id="achievementTitle">لقد فتحت باب المعرفة</h4>
+                    <p id="achievementDesc">استمر في رحلتك أيها الكاتب العظيم</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-gold" data-bs-dismiss="modal">تسلم الشارة</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        function submitExam() {
-            let score = 0;
-            let q1 = document.querySelector('input[name="q1"]:checked');
-            let q2 = document.querySelector('input[name="q2"]:checked');
+        // Loader
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('fade-out');
+                playBackgroundMusic();
+            }, 2000);
+        });
 
-            if(!q1 || !q2) {
-                alert("برجاء الإجابة على جميع الأسئلة يا بطل!");
+        // Sound Functions
+        let soundEnabled = true;
+        let musicPlaying = false;
+
+        function playBackgroundMusic() {
+            if (!soundEnabled) return;
+            const music = document.getElementById('backgroundMusic');
+            music.volume = 0.3;
+            music.play().catch(() => {});
+            musicPlaying = true;
+        }
+
+        function playSound(soundId) {
+            if (!soundEnabled) return;
+            const sound = document.getElementById(soundId);
+            sound.currentTime = 0;
+            sound.play().catch(() => {});
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const music = document.getElementById('backgroundMusic');
+            const toggle = document.getElementById('soundToggle');
+            
+            if (soundEnabled) {
+                music.play();
+                toggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                music.pause();
+                toggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        }
+
+        // Portal Entry
+        function enterPortal() {
+            playSound('ankhSound');
+            document.body.style.animation = 'none';
+            setTimeout(() => {
+                document.body.style.animation = 'flicker 3s infinite';
+            }, 100);
+            
+            // Show message
+            alert("𓋴𓂋𓏏 مرحباً بك في عالم الأجداد... اكتشف بنفسك!");
+            
+            // Unlock first achievement
+            unlockAchievement('eye');
+        }
+
+        // Jump to Timeline
+        function jumpToYear(year) {
+            playSound('ankhSound');
+            const display = document.getElementById('yearDisplay');
+            const absYear = Math.abs(year);
+            display.innerText = absYear + (year < 0 ? ' ق.م' : ' م');
+            
+            if (year === -3100) {
+                unlockAchievement('star');
+            }
+        }
+
+        // Quiz Grading
+        function gradeQuiz() {
+            playSound('ankhSound');
+            
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+            
+            if (!q1 || !q2 || !q3) {
+                alert("يجب إجابة جميع الأسئلة أيها الكاتب!");
                 return;
             }
-
-            if(q1.value === "yes") score += 50;
-            if(q2.value === "yes") score += 50;
-
-            // رصد الدرجة فوراً في الجدول
-            const table = document.getElementById('gradeTable');
-            const newRow = table.insertRow();
+            
+            let score = 0;
+            if (q1.value === 'correct') score += 33.33;
+            if (q2.value === 'correct') score += 33.33;
+            if (q3.value === 'correct') score += 33.34;
+            
+            const roundedScore = Math.round(score);
+            
+            // Update knowledge level
+            document.getElementById('knowledgeLevel').style.width = roundedScore + '%';
+            document.getElementById('knowledgePercent').innerText = roundedScore + '%';
+            
+            // Add to grade table
+            const tableBody = document.getElementById('gradeTableHologram');
+            const newRow = tableBody.insertRow(0);
             newRow.innerHTML = `
-                <td>طالب مجتهد</td>
-                <td>اختبار الدراسات الشامل</td>
-                <td><span class="grade-badge">${score}%</span></td>
-                <td>${score >= 50 ? '✅ ناجح' : '❌ أعد المحاولة'}</td>
+                <td>كاتب مجتهد</td>
+                <td>اختبار الوزير</td>
+                <td><span class="badge" style="background: var(--gold); color: var(--lapis);">${roundedScore}%</span></td>
+                <td>
+                    <span class="badge" style="background: ${roundedScore >= 70 ? 'green' : 'red'};">
+                        ${roundedScore >= 70 ? 'ناجح' : 'حاول مرة أخرى'}
+                    </span>
+                </td>
+                <td><button class="btn btn-sm btn-outline-gold" onclick="rewardStudent()">🎁</button></td>
             `;
-
-            alert("تم رصد درجتك بنجاح في سجلات المعبد!");
+            
+            if (roundedScore >= 70) {
+                unlockAchievement('scroll');
+                showAchievementModal('ناجح في اختبار الوزير', 'لقد أثبت جدارتك أيها الكاتب العظيم!');
+            }
         }
+
+        // Reward student
+        function rewardStudent() {
+            let points = parseInt(document.getElementById('studentPoints').innerText);
+            points += 25;
+            document.getElementById('studentPoints').innerText = points;
+            
+            // Update progress
+            const progress = document.getElementById('studentProgress');
+            progress.style.width = Math.min(points / 2, 100) + '%';
+        }
+
+        // Unlock achievement
+        function unlockAchievement(type) {
+            const badges = document.querySelectorAll('.achievement-badge');
+            badges.forEach(badge => {
+                if (badge.querySelector('i')?.classList.contains(`fa-${type}`)) {
+                    badge.setAttribute('data-unlocked', 'true');
+                }
+            });
+            
+            // Add to feed
+            const feed = document.getElementById('achievementFeed');
+            if (feed) {
+                const li = document.createElement('li');
+                li.className = 'list-group-item bg-transparent text-light';
+                li.innerText = '✦ كسبت شارة جديدة: ' + type;
+                feed.prepend(li);
+            }
+        }
+
+        function showAchievementModal(title, desc) {
+            document.getElementById('achievementTitle').innerText = title;
+            document.getElementById('achievementDesc').innerText = desc;
+            const modal = new bootstrap.Modal(document.getElementById('achievementModal'));
+            modal.show();
+        }
+
+        // Show achievements
+        function showAchievements() {
+            let unlockedCount = 0;
+            const badges = document.querySelectorAll('.achievement-badge[data-unlocked="true"]');
+            unlockedCount = badges.length;
+            
+            alert(`لديك ${unlockedCount} من أصل 5 شارات مفتوحة. استمر في رحلتك!`);
+        }
+
+        // Teacher functions
+        function openTeacherThrone() {
+            playSound('ankhSound');
+            document.getElementById('teacherDash').style.display = 'block';
+            document.getElementById('portal').scrollIntoView({behavior: 'smooth'});
+            
+            // Load dummy chart if Chart.js is available
+            if (typeof Chart !== 'undefined') {
+                const ctx = document.getElementById('studentChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'اليوم'],
+                        datasets: [{
+                            label: 'مستوى الفهم',
+                            data: [30, 45, 60, 85],
+                            borderColor: 'var(--gold)',
+                            backgroundColor: 'rgba(255,215,0,0.1)'
+                        }]
+                    }
+                });
+            }
+        }
+
+        function closeTeacherThrone() {
+            document.getElementById('teacherDash').style.display = 'none';
+        }
+
+        function openStudentChamber() {
+            playSound('ankhSound');
+            document.getElementById('studentChamber').style.display = 'block';
+            document.getElementById('portal').scrollIntoView({behavior: 'smooth'});
+        }
+
+        function closeStudentChamber() {
+            document.getElementById('studentChamber').style.display = 'none';
+        }
+
+        // Task update
+        function updateTask(checkbox) {
+            if (checkbox.checked) {
+                rewardStudent();
+            }
+        }
+
+        function claimReward() {
+            let points = parseInt(document.getElementById('studentPoints').innerText);
+            points += 50;
+            document.getElementById('studentPoints').innerText = points;
+            
+            const progress = document.getElementById('studentProgress');
+            progress.style.width = Math.min(points / 2, 100) + '%';
+            
+            alert('تم إضافة 50 نقطة إلى رصيدك!');
+        }
+
+        // Initialize achievements list
+        function initAchievements() {
+            const list = document.getElementById('achievementsList');
+            if (list) {
+                list.innerHTML = `
+                    <div class="achievement-badge" data-unlocked="true">
+                        <i class="fas fa-eye"></i>
+                        <span class="badge-tooltip">عين حورس</span>
+                    </div>
+                    <div class="achievement-badge" data-unlocked="false">
+                        <i class="fas fa-star"></i>
+                        <span class="badge-tooltip">نجم الشمال</span>
+                    </div>
+                    <div class="achievement-badge" data-unlocked="false">
+                        <i class="fas fa-scroll"></i>
+                        <span class="badge-tooltip">كاتب البردي</span>
+                    </div>
+                    <div class="achievement-badge" data-unlocked="false">
+                        <i class="fas fa-crown"></i>
+                        <span class="badge-tooltip">تاج مصر</span>
+                    </div>
+                    <div class="achievement-badge" data-unlocked="false">
+                        <i class="fas fa-ankh"></i>
+                        <span class="badge-tooltip">مفتاح الحياة</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Run init
+        initAchievements();
     </script>
 
+    <!-- Bootstrap and Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
