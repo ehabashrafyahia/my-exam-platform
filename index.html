@@ -3,1211 +3,1679 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسرار الكنانة | رحلة تفاعلية</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Teko:wght@400;600&display=swap" rel="stylesheet">
+    <title>كنانة التعليمية | منصة التعلم الذكية</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
+        /* Color System */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --gray-900: #1e293b;
+            --gray-800: #334155;
+            --gray-700: #475569;
+            --gray-600: #64748b;
+            --gray-500: #94a3b8;
+            --gray-400: #cbd5e1;
+            --gray-300: #e2e8f0;
+            --gray-200: #f1f5f9;
+            --gray-100: #f8fafc;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --gold: #FFD700;
-            --electrum: #C5B358;
-            --lapis: #003366;
-            --dark-lapis: #002244;
-            --sand: #DEB887;
-            --night-sky: #0a0a1a;
-            --papyrus-light: #f4e4c1;
-        }
-
         body {
-            background: var(--night-sky);
-            color: #fff;
             font-family: 'Cairo', sans-serif;
-            overflow-x: hidden;
-            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
         }
 
-        /* Stars Background */
-        .stars, .twinkling, .clouds {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            pointer-events: none;
-            z-index: -1;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
         }
 
-        .stars {
-            background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
-            z-index: -3;
+        ::-webkit-scrollbar-track {
+            background: var(--gray-200);
         }
 
-        .twinkling {
-            background: transparent url('https://i.imgur.com/XYMF5ca.png') repeat top center;
-            z-index: -2;
-            animation: move-twink-back 200s linear infinite;
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 5px;
         }
 
-        @keyframes move-twink-back {
-            from {background-position: 0 0;}
-            to {background-position: -10000px 5000px;}
-        }
-
-        /* Ankh loading animation */
-        .ankh-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--night-sky);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 1s ease;
-        }
-
-        .ankh-loader.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .ankh {
-            width: 100px;
-            height: 100px;
-            border: 3px solid var(--gold);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            position: relative;
-            animation: breathe 3s ease-in-out infinite;
-        }
-
-        .ankh::before {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 80px;
-            background: var(--gold);
-            bottom: -40px;
-            left: 32px;
-            animation: extend 3s ease-in-out infinite;
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
-
-        @keyframes extend {
-            0%, 100% { height: 80px; }
-            50% { height: 100px; }
-        }
-
-        /* Floating Hieroglyphs */
-        .hieroglyph-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.1;
-            font-size: 24px;
-            color: var(--gold);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-            user-select: none;
-        }
-
-        /* Navbar - Pharaoh's Throne */
-        .throne-nav {
-            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,51,102,0.8) 100%);
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 3px solid var(--gold);
-            position: relative;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             padding: 1rem 0;
         }
 
-        .throne-nav::before {
-            content: '';
+        .navbar-brand {
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .navbar-brand::after {
+            content: '®';
+            font-size: 0.8rem;
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,215,0,0.1) 2px, rgba(255,215,0,0.1) 4px);
-            pointer-events: none;
+            margin-right: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .pharaoh-name {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--gold);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        .nav-link {
+            color: var(--gray-700) !important;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            transition: all 0.3s;
             position: relative;
-            display: inline-block;
         }
 
-        .pharaoh-name::before,
-        .pharaoh-name::after {
-            content: '𓋴𓂋𓏏';
-            font-size: 1.5rem;
-            margin: 0 10px;
-            opacity: 0.7;
-        }
-
-        /* Hero Section - Interactive Portal */
-        .portal-hero {
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .portal-circle {
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, var(--gold), var(--lapis), var(--electrum), var(--gold));
-            animation: rotate 20s linear infinite;
-            position: relative;
-            filter: blur(20px);
-            opacity: 0.3;
-        }
-
-        .portal-inner {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,215,0,0.8), rgba(0,51,102,0.9));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            backdrop-filter: blur(5px);
-            border: 2px solid var(--gold);
-            box-shadow: 0 0 50px var(--gold);
-            transition: transform 0.5s ease;
-        }
-
-        .portal-hero:hover .portal-inner {
-            transform: scale(1.1);
-            box-shadow: 0 0 100px var(--gold);
-        }
-
-        .portal-inner h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            color: var(--gold);
-            text-shadow: 0 0 20px rgba(255,215,0,0.5);
-            animation: flicker 3s infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* 3D Cards */
-        .book-3d {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            height: 300px;
-            cursor: pointer;
-        }
-
-        .book-card {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .book-3d:hover .book-card {
-            transform: rotateY(180deg);
-        }
-
-        .book-front, .book-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .book-front {
-            background: linear-gradient(135deg, var(--lapis), var(--dark-lapis));
-            border: 2px solid var(--gold);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .book-back {
-            background: var(--papyrus-light);
-            color: var(--dark-lapis);
-            transform: rotateY(180deg);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border: 2px solid var(--gold);
-        }
-
-        .book-spine {
-            position: absolute;
-            width: 40px;
-            height: 100%;
-            left: -20px;
-            background: linear-gradient(to right, var(--electrum), var(--gold));
-            transform: rotateY(90deg) translateZ(-20px);
-            border-radius: 5px 0 0 5px;
-        }
-
-        .book-cover-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            filter: sepia(50%) brightness(0.8);
-        }
-
-        /* Interactive Timeline */
-        .timeline-container {
-            position: relative;
-            padding: 40px 0;
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: thin;
-            scrollbar-color: var(--gold) var(--dark-lapis);
-        }
-
-        .timeline-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .timeline-container::-webkit-scrollbar-track {
-            background: var(--dark-lapis);
-        }
-
-        .timeline-container::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 4px;
-        }
-
-        .timeline-slider {
-            display: inline-flex;
-            gap: 20px;
-            padding: 0 20px;
-        }
-
-        .timeline-item {
-            width: 200px;
-            background: rgba(0,51,102,0.7);
-            backdrop-filter: blur(5px);
-            border: 2px solid var(--gold);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            white-space: normal;
-        }
-
-        .timeline-item:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: var(--lapis);
-            border-color: var(--electrum);
-        }
-
-        .timeline-year {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--gold);
-        }
-
-        /* Papyrus Quiz with Animation */
-        .sacred-papyrus {
-            background: var(--papyrus-light);
-            color: #333;
-            padding: 40px;
-            border-radius: 20px 20px 5px 5px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transform-origin: top;
-            animation: unroll 1s ease-out;
-        }
-
-        @keyframes unroll {
-            from { transform: scaleY(0); opacity: 0; }
-            to { transform: scaleY(1); opacity: 1; }
-        }
-
-        .sacred-papyrus::before {
+        .nav-link::before {
             content: '';
             position: absolute;
-            top: -5px;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: repeating-linear-gradient(90deg, transparent, transparent 5px, var(--gold) 5px, var(--gold) 10px);
-        }
-
-        .question-card {
-            background: rgba(255,255,255,0.5);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-right: 4px solid var(--gold);
-            transition: transform 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateX(-10px);
-            background: rgba(255,255,255,0.7);
-        }
-
-        /* Teacher Dashboard - Hologram Effect */
-        .hologram-panel {
-            background: rgba(0,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(0,255,255,0.3);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 30px rgba(0,255,255,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hologram-panel::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,255,255,0.1) 10px, rgba(0,255,255,0.1) 20px);
-            animation: scan 10s linear infinite;
-        }
-
-        @keyframes scan {
-            from { transform: translateX(-50%) translateY(-50%) rotate(45deg); }
-            to { transform: translateX(50%) translateY(50%) rotate(45deg); }
-        }
-
-        /* Achievement Badges */
-        .badge-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .achievement-badge {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--electrum));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--dark-lapis);
-            position: relative;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .achievement-badge:hover {
-            transform: rotate(360deg) scale(1.1);
-            box-shadow: 0 0 20px var(--gold);
-        }
-
-        .achievement-badge[data-unlocked="false"] {
-            filter: grayscale(100%);
-            opacity: 0.3;
-        }
-
-        .badge-tooltip {
-            position: absolute;
-            bottom: 100%;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--dark-lapis);
-            color: var(--gold);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            border: 1px solid var(--gold);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
         }
 
-        .achievement-badge:hover .badge-tooltip {
-            opacity: 1;
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 80%;
         }
 
-        /* Progress Bar - Nile Level */
-        .nile-level {
-            height: 30px;
-            background: linear-gradient(90deg, #0066cc, #00ccff);
-            border-radius: 15px;
-            position: relative;
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white !important;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem !important;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             overflow: hidden;
-            border: 2px solid var(--gold);
+            position: relative;
         }
 
-        .nile-level::after {
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shine 2s linear infinite;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: cover;
+            opacity: 0.5;
         }
 
-        @keyframes shine {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(100%); }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* Sound Controls */
-        .sound-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+        .hero .lead {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
         }
 
-        .sound-btn {
-            width: 50px;
-            height: 50px;
+        /* Search Section */
+        .search-section {
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .filter-chips {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            padding: 0.5rem 1.2rem;
+            background: var(--gray-100);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .chip:hover,
+        .chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: white;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 60px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1);
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
             border-radius: 50%;
-            background: var(--lapis);
-            border: 2px solid var(--gold);
-            color: var(--gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        /* Categories Section */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--gray-600);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             transition: all 0.3s;
-            animation: pulse 2s infinite;
+            height: 100%;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 var(--gold); }
-            70% { box-shadow: 0 0 0 10px rgba(255,215,0,0); }
-            100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); }
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(37, 99, 235, 0.15);
         }
 
-        .sound-btn:hover {
-            transform: scale(1.1);
-            background: var(--gold);
-            color: var(--lapis);
+        .category-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.7));
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255,255,255,0.9);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .category-content {
+            padding: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            margin: 1rem 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        /* Course Cards */
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 50px rgba(37, 99, 235, 0.1);
+        }
+
+        .course-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .course-level {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.95);
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--gray-600);
+        }
+
+        .instructor-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-number {
+            color: var(--gray-600);
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .course-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .course-price.free {
+            color: var(--success);
+        }
+
+        .btn-enroll {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-enroll:hover {
+            background: var(--primary-dark);
+            transform: translateX(-2px);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: rotate(360deg);
+        }
+
+        /* Dashboard */
+        .dashboard-section {
+            padding: 60px 0;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .dashboard-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .dashboard-link:hover {
+            color: var(--primary);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+
+        /* Teacher Panel */
+        .teacher-panel {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .teacher-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .teacher-stat {
+            text-align: center;
+        }
+
+        .teacher-stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-light);
+        }
+
+        .teacher-stat-label {
+            color: var(--gray-400);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .portal-inner h1 {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.2rem;
+            }
+            
+            .search-input-group {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                width: 100%;
+            }
+            
+            .section-title {
                 font-size: 2rem;
             }
-            
-            .portal-circle, .portal-inner {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .portal-inner {
-                width: 250px;
-                height: 250px;
-            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-300) 50%, var(--gray-200) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
 <body>
-    <!-- Ankh Loader -->
-    <div class="ankh-loader" id="loader">
-        <div class="ankh"></div>
-    </div>
-
-    <!-- Background Elements -->
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="hieroglyph-bg">
-        <span>𓋴𓂋𓏏</span> <span>𓇓𓏏𓊵</span> <span>𓊹𓊹𓊹</span> <span>𓂀</span> <span>𓆣</span> <span>𓃀</span>
-        <span>𓋴𓂋𓏏</span> <span>𓇓𓏏𓊵</span> <span>𓊹𓊹𓊹</span> <span>𓂀</span> <span>𓆣</span> <span>𓃀</span>
-    </div>
-
-    <!-- Sound Control -->
-    <div class="sound-control">
-        <div class="sound-btn" onclick="toggleSound()" id="soundToggle">
-            <i class="fas fa-volume-up"></i>
-        </div>
-    </div>
-
-    <!-- Audio Elements (would need actual files) -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="ankhSound">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Pharaoh's Throne Navbar -->
-    <nav class="throne-nav navbar navbar-expand-lg sticky-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand pharaoh-name" href="#">
-                <span class="d-none d-sm-inline">𓋴𓂋𓏏</span> 
-                أسرار الكنانة 
-                <span class="d-none d-sm-inline">𓋴𓂋𓏏</span>
-            </a>
+            <a class="navbar-brand" href="#">كنانة</a>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#portal" onclick="playSound('ankhSound')">
-                            <i class="fas fa-ankh"></i> البوابة
-                        </a>
+                        <a class="nav-link active" href="#">الرئيسية</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#library" onclick="playSound('ankhSound')">
-                            <i class="fas fa-book"></i> مكتبة المعرفة
-                        </a>
+                        <a class="nav-link" href="#">المسارات</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#timeline" onclick="playSound('ankhSound')">
-                            <i class="fas fa-clock"></i> خط الزمن
-                        </a>
+                        <a class="nav-link" href="#">الكورسات</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-crown"></i> ركن الحكام
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#" onclick="openTeacherThrone()">👑 عرش المعلم</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="openStudentChamber()">📜 حجرة الطالب</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" onclick="showAchievements()">🏆 الإنجازات</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">المعلمون</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">المجتمع</a>
                     </li>
                 </ul>
+                
+                <div class="d-flex gap-2">
+                    <button class="btn btn-login" onclick="openLoginModal()">
+                        <i class="fas fa-user"></i> دخول
+                    </button>
+                    <button class="btn btn-outline-primary" onclick="openSignupModal()">
+                        اشتراك
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Interactive Portal Hero -->
-    <section id="portal" class="portal-hero" onclick="enterPortal()">
-        <div class="portal-circle"></div>
-        <div class="portal-inner">
-            <h1>اِدْخُلِ الْعَالَمَ الْآخَرَ</h1>
-            <p class="lead">اضغط لبدء الرحلة 𓅃</p>
-            <div class="badge-container justify-content-center mt-3">
-                <div class="achievement-badge" data-unlocked="true">
-                    <i class="fas fa-eye"></i>
-                    <span class="badge-tooltip">حكيم مبتدئ</span>
-                </div>
-                <div class="achievement-badge" data-unlocked="false">
-                    <i class="fas fa-star"></i>
-                    <span class="badge-tooltip">نجم المعرفة</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3D Library Section -->
-    <section id="library" class="container mt-5">
-        <h2 class="text-center mb-4" style="color: var(--gold); font-weight: 900;">𓏞 مكتبة الأجداد 𓏞</h2>
-        <p class="text-center text-light mb-5">مرر فوق الكتب لتقلب صفحاتها... أو لترى ما تخفيه</p>
-        
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="book-3d">
-                    <div class="book-card">
-                        <div class="book-front">
-                            <img src="https://images.unsplash.com/photo-1539130545229-23136666993a?w=400" class="book-cover-image">
-                            <div class="p-3">
-                                <h5 class="text-gold">لغز الهرم الأكبر</h5>
-                                <small class="text-light-50">رياضيات الفراعنة</small>
-                            </div>
-                            <div class="book-spine"></div>
-                        </div>
-                        <div class="book-back">
-                            <h5 class="text-dark">هل تعلم؟</h5>
-                            <p class="small">الهرم الأكبر يتجه بدقة متناهية إلى الاتجاهات الأصلية الأربعة بخطأ أقل من 0.05 درجة!</p>
-                            <button class="btn btn-sm" style="background: var(--gold); color: var(--lapis);" onclick="unlockAchievement('star')">اكتشف السر</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="book-3d">
-                    <div class="book-card">
-                        <div class="book-front">
-                            <img src="https://images.unsplash.com/photo-1599933334297-51644b4e5433?w=400" class="book-cover-image">
-                            <div class="p-3">
-                                <h5 class="text-gold">أسرار البردي</h5>
-                                <small class="text-light-50">الطب في مصر القديمة</small>
-                            </div>
-                            <div class="book-spine"></div>
-                        </div>
-                        <div class="book-back">
-                            <h5 class="text-dark">مذهل!</h5>
-                            <p>بردية إدوين سميث تشرح 48 حالة جراحية بتفاصيل دقيقة جداً، وكأنها كتبت اليوم!</p>
-                            <button class="btn btn-sm" style="background: var(--gold); color: var(--lapis);">اقرأ البردية</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="book-3d">
-                    <div class="book-card">
-                        <div class="book-front">
-                            <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400" class="book-cover-image">
-                            <div class="p-3">
-                                <h5 class="text-gold">نهر الخلود</h5>
-                                <small class="text-light-50">جغرافيا النيل</small>
-                            </div>
-                            <div class="book-spine"></div>
-                        </div>
-                        <div class="book-back">
-                            <h5 class="text-dark">معلومة جغرافية</h5>
-                            <p>النيل يجري من الجنوب إلى الشمال عكس معظم أنهار العالم، وكأنه يتحدى الطبيعة!</p>
-                            <button class="btn btn-sm" style="background: var(--gold); color: var(--lapis);">استكشف</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Timeline -->
-    <section id="timeline" class="container mt-5">
-        <h2 class="text-center mb-4" style="color: var(--gold);">𓆣 رحلة عبر الزمن 𓆣</h2>
-        <p class="text-center text-light mb-3">اسحب الشريط الزمني لاكتشاف العصور</p>
-        
-        <div class="timeline-container">
-            <div class="timeline-slider">
-                <div class="timeline-item" onclick="jumpToYear(-3100)">
-                    <div class="timeline-year">𓃒 3100 ق.م</div>
-                    <p>توحيد القطرين</p>
-                </div>
-                <div class="timeline-item" onclick="jumpToYear(-2575)">
-                    <div class="timeline-year">𓉭 2575 ق.م</div>
-                    <p>عصر بناة الأهرام</p>
-                </div>
-                <div class="timeline-item" onclick="jumpToYear(-1500)">
-                    <div class="timeline-year">𓋴𓂋𓏏 1500 ق.م</div>
-                    <p>الإمبراطورية المصرية</p>
-                </div>
-                <div class="timeline-item" onclick="jumpToYear(-1336)">
-                    <div class="timeline-year">𓁐 1336 ق.م</div>
-                    <p>عصر توت عنخ آمون</p>
-                </div>
-                <div class="timeline-item" onclick="jumpToYear(-1279)">
-                    <div class="timeline-year">𓌢𓌢𓌢 1279 ق.م</div>
-                    <p>رمسيس الثاني</p>
-                </div>
-                <div class="timeline-item" onclick="jumpToYear(-332)">
-                    <div class="timeline-year">𓃭 332 ق.م</div>
-                    <p>العهد اليوناني</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Dynamic Year Display -->
-        <div class="text-center mt-3" id="currentYear" style="font-size: 1.5rem; color: var(--electrum);">
-            𓋴𓂋𓏏 أنت في العام: <span id="yearDisplay">2024</span> م
-        </div>
-    </section>
-
-    <!-- Sacred Papyrus Quiz -->
-    <section class="container mt-5 mb-5">
-        <h2 class="text-center mb-4" style="color: var(--gold);">𓏏𓏭𓊖 اختبار "وزير الإله" 𓏏𓏭𓊖</h2>
-        
-        <div class="sacred-papyrus" id="quizPapyrus">
-            <div class="row">
-                <div class="col-md-8">
-                    <h4 class="mb-4" style="color: var(--lapis);">𓂀 أثبت جدارتك لتحكم مع الآلهة</h4>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h1>اكتشف عالمًا من المعرفة</h1>
+                    <p class="lead">منصة تعليمية متكاملة تجمع بين الخبراء والمحتوى التفاعلي لتطوير مهاراتك في كل المجالات</p>
                     
-                    <div class="question-card">
-                        <label class="fw-bold">١. من هو الفرعون الذي حاول توحيد الآلهة في إله واحد؟</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q1" value="wrong">
-                            <label class="form-check-label">رمسيس الثاني</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q1" value="correct">
-                            <label class="form-check-label">أخناتون</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q1" value="wrong">
-                            <label class="form-check-label">تحتمس الثالث</label>
-                        </div>
-                    </div>
-
-                    <div class="question-card">
-                        <label class="fw-bold">٢. ما هي أقدم بردية طبية في التاريخ؟</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q2" value="wrong">
-                            <label class="form-check-label">بردية إيبرس</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q2" value="wrong">
-                            <label class="form-check-label">بردية لندن</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q2" value="correct">
-                            <label class="form-check-label">بردية كاهون</label>
-                        </div>
-                    </div>
-
-                    <div class="question-card">
-                        <label class="fw-bold">٣. أي من هذه المعابد ليس في الأقصر؟</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q3" value="wrong">
-                            <label class="form-check-label">معبد الكرنك</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q3" value="wrong">
-                            <label class="form-check-label">معبد الأقصر</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q3" value="correct">
-                            <label class="form-check-label">معبد أبو سمبل</label>
-                        </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <button class="btn btn-light btn-lg px-5">
+                            <i class="fas fa-play"></i> ابدأ التعلم مجانًا
+                        </button>
+                        <button class="btn btn-outline-light btn-lg px-5">
+                            <i class="fas fa-video"></i> شاهد العرض
+                        </button>
                     </div>
                     
-                    <button class="btn w-100 mt-3" style="background: var(--lapis); color: var(--gold); border: 2px solid var(--gold);" onclick="gradeQuiz()">
-                        <i class="fas fa-scale-balanced"></i> وزن الروح مع ريشة ماعت
+                    <div class="d-flex gap-4 mt-5">
+                        <div>
+                            <div class="fw-bold fs-3">+50k</div>
+                            <div class="small opacity-75">طالب مسجل</div>
+                        </div>
+                        <div>
+                            <div class="fw-bold fs-3">+200</div>
+                            <div class="small opacity-75">كورس متخصص</div>
+                        </div>
+                        <div>
+                            <div class="fw-bold fs-3">+100</div>
+                            <div class="small opacity-75">معلم خبير</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" alt="Hero" class="img-fluid rounded-4 shadow-lg float-animation">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-card" data-aos="zoom-in">
+                <div class="search-input-group">
+                    <input type="text" class="search-input" placeholder="ابحث عن كورس، معلم، أو موضوع..." id="searchInput">
+                    <button class="search-btn" onclick="searchCourses()">
+                        <i class="fas fa-search"></i> بحث
                     </button>
                 </div>
                 
-                <div class="col-md-4">
-                    <div class="hologram-panel" style="height: 100%;">
-                        <h5 class="text-center" style="color: var(--gold);">𓋴𓂋𓏏 سجل الخلود</h5>
-                        <div class="text-center mb-3">
-                            <div class="achievement-badge mx-auto" data-unlocked="true">
-                                <i class="fas fa-scroll"></i>
+                <div class="filter-chips">
+                    <span class="chip active">الكل</span>
+                    <span class="chip">تطوير الأعمال</span>
+                    <span class="chip">علوم الحاسب</span>
+                    <span class="chip">اللغات</span>
+                    <span class="chip">الهندسة</span>
+                    <span class="chip">الطب</span>
+                    <span class="chip">الفنون</span>
+                    <span class="chip">التسويق</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-label">طالب مسجل</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">كورس متخصص</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">معلم خبير</div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="stat-number">15,000+</div>
+                        <div class="stat-label">شهادة معتمدة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="container my-5">
+        <h2 class="section-title text-center">مسارات التعلم</h2>
+        <p class="section-subtitle text-center">اختر مسارك التعليمي وابدأ رحلة التطور</p>
+        
+        <div class="row g-4">
+            <div class="col-md-3" data-aos="flip-right" data-aos-delay="100">
+                <div class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400')">
+                        <div class="category-overlay"></div>
+                        <span class="category-badge">12 كورس</span>
+                    </div>
+                    <div class="category-content">
+                        <h3 class="category-title">تطوير الأعمال</h3>
+                        <div class="category-meta">
+                            <span><i class="fas fa-user"></i> 5 معلمين</span>
+                            <span><i class="fas fa-users"></i> 2,500 طالب</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>نسبة الإكمال</span>
+                            <span class="fw-bold">75%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3" data-aos="flip-right" data-aos-delay="200">
+                <div class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400')">
+                        <div class="category-overlay"></div>
+                        <span class="category-badge">8 كورس</span>
+                    </div>
+                    <div class="category-content">
+                        <h3 class="category-title">علوم الحاسب</h3>
+                        <div class="category-meta">
+                            <span><i class="fas fa-user"></i> 4 معلمين</span>
+                            <span><i class="fas fa-users"></i> 1,800 طالب</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 60%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>نسبة الإكمال</span>
+                            <span class="fw-bold">60%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3" data-aos="flip-right" data-aos-delay="300">
+                <div class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400')">
+                        <div class="category-overlay"></div>
+                        <span class="category-badge">15 كورس</span>
+                    </div>
+                    <div class="category-content">
+                        <h3 class="category-title">اللغات</h3>
+                        <div class="category-meta">
+                            <span><i class="fas fa-user"></i> 8 معلمين</span>
+                            <span><i class="fas fa-users"></i> 3,200 طالب</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 45%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>نسبة الإكمال</span>
+                            <span class="fw-bold">45%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3" data-aos="flip-right" data-aos-delay="400">
+                <div class="category-card">
+                    <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400')">
+                        <div class="category-overlay"></div>
+                        <span class="category-badge">10 كورس</span>
+                    </div>
+                    <div class="category-content">
+                        <h3 class="category-title">الطب</h3>
+                        <div class="category-meta">
+                            <span><i class="fas fa-user"></i> 6 معلمين</span>
+                            <span><i class="fas fa-users"></i> 1,200 طالب</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 30%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>نسبة الإكمال</span>
+                            <span class="fw-bold">30%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Courses -->
+    <section class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title">الكورسات الأكثر طلبًا</h2>
+            <a href="#" class="dashboard-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400')">
+                        <span class="course-level">مبتدئ</span>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">أساسيات التسويق الرقمي</h3>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>د. أحمد محمد</span>
+                        </div>
+                        <div class="course-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-number">(4.5)</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="course-price free">مجاني</span>
+                            <button class="btn-enroll">اشترك الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400')">
+                        <span class="course-level">متوسط</span>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">تطوير تطبيقات الويب</h3>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>مهندسة ليلى</span>
+                        </div>
+                        <div class="course-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-number">(5.0)</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="course-price">$49.99</span>
+                            <button class="btn-enroll">اشترك الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400')">
+                        <span class="course-level">متقدم</span>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">الذكاء الاصطناعي</h3>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>د. عمر حسن</span>
+                        </div>
+                        <div class="course-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-number">(4.8)</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="course-price">$79.99</span>
+                            <button class="btn-enroll">اشترك الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="course-card">
+                    <div class="course-image" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400')">
+                        <span class="course-level">مبتدئ</span>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title">إدارة المشاريع</h3>
+                        <div class="course-instructor">
+                            <div class="instructor-avatar"></div>
+                            <span>م. نادية</span>
+                        </div>
+                        <div class="course-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-number">(4.0)</span>
+                        </div>
+                        <div class="course-footer">
+                            <span class="course-price free">مجاني</span>
+                            <button class="btn-enroll">اشترك الآن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="text-center text-white mb-5" data-aos="zoom-in">لماذا تختار كنانة؟</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h4>محتوى تفاعلي</h4>
+                        <p class="opacity-75">فيديوهات تفاعلية وتمارين عملية لتجربة تعلم ممتعة</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>مجتمع تعاوني</h4>
+                        <p class="opacity-75">تواصل مع زملائك ومعلميك في مجتمع تعليمي نابض بالحياة</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h4>شهادات معتمدة</h4>
+                        <p class="opacity-75">احصل على شهادات معتمدة تعزز فرصك في سوق العمل</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="row">
+                <!-- Student Dashboard -->
+                <div class="col-lg-4" data-aos="fade-left">
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <h3 class="dashboard-title">نشاطك الأخير</h3>
+                            <a href="#" class="dashboard-link">عرض الكل</a>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">بدأت كورس التسويق الرقمي</div>
+                                <div class="activity-time">منذ ساعتين</div>
                             </div>
                         </div>
-                        <div class="nile-level mb-3" style="width: 100%;">
-                            <div class="nile-level" id="knowledgeLevel" style="width: 30%;"></div>
-                        </div>
-                        <p class="small text-center" style="color: cyan;">مستوى المعرفة: <span id="knowledgePercent">30%</span></p>
                         
-                        <div class="badge-container" id="achievementsList">
-                            <!-- Filled by JS -->
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">أكملت اختبار الذكاء الاصطناعي</div>
+                                <div class="activity-time">الدرجة: 85%</div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Teacher's Hologram Dashboard -->
-    <section class="container mt-5 mb-5" id="teacherDash" style="display: none;">
-        <h2 class="text-center mb-4" style="color: var(--gold);">𓋴𓂋𓏏 عرش المعلم التفاعلي 𓋴𓂋𓏏</h2>
-        
-        <div class="hologram-panel">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5 class="text-gold">📊 تقدم الطلاب (فيزياء فلكورية)</h5>
-                    <canvas id="studentChart" width="400" height="200"></canvas>
-                </div>
-                <div class="col-md-6">
-                    <h5 class="text-gold">🏆 أحدث الإنجازات</h5>
-                    <ul class="list-group list-group-flush bg-transparent" id="achievementFeed">
-                        <li class="list-group-item bg-transparent text-light">✦ طالب مجهول حصل على شارة "حكيم النيل"</li>
-                        <li class="list-group-item bg-transparent text-light">✦ 3 طلاب فتحوا خريطة الكنز المخفية</li>
-                        <li class="list-group-item bg-transparent text-light">✦ تم فتح باب جديد في الهرم الأكبر</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="row mt-4">
-                <div class="col-12">
-                    <h5 class="text-gold">📝 سجل الدرجات المباشر</h5>
-                    <div class="table-responsive">
-                        <table class="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th>الطالب</th>
-                                    <th>الاختبار</th>
-                                    <th>الدرجة</th>
-                                    <th>الشارات</th>
-                                    <th>الإجراء</th>
-                                </tr>
-                            </thead>
-                            <tbody id="gradeTableHologram">
-                                <!-- Filled by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-3">
-                <button class="btn btn-outline-info" onclick="closeTeacherThrone()">
-                    <i class="fas fa-arrow-left"></i> العودة إلى البوابة
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Student Chamber -->
-    <section class="container mt-5 mb-5" id="studentChamber" style="display: none;">
-        <h2 class="text-center mb-4" style="color: var(--gold);">𓋴𓂋𓏏 حجرة الطالب الخاصة 𓋴𓂋𓏏</h2>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card bg-dark border-gold">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-graduate fa-3x" style="color: var(--gold);"></i>
-                        <h5 class="text-gold mt-2">بطاقة هوية الكاتب</h5>
-                        <p>الاسم: <span id="studentName">كاتب متدرب</span><br>
-                           المستوى: <span id="studentLevel">البداية</span><br>
-                           النقاط: <span id="studentPoints">0</span> 𓋴𓂋𓏏</p>
-                        <div class="nile-level" style="width: 100%;">
-                            <div id="studentProgress" style="width: 0%; height: 100%; background: var(--gold);"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-8">
-                <div class="card bg-dark border-gold">
-                    <div class="card-body">
-                        <h5 class="text-gold">مهامك اليومية (وصايا الإله)</h5>
-                        <ul class="list-group list-group-flush bg-transparent">
-                            <li class="list-group-item bg-transparent text-light">
-                                <input type="checkbox" onchange="updateTask(this)"> اقرأ درس "لغز الهرم"
-                            </li>
-                            <li class="list-group-item bg-transparent text-light">
-                                <input type="checkbox" onchange="updateTask(this)"> أكمل اختبار الوزير
-                            </li>
-                            <li class="list-group-item bg-transparent text-light">
-                                <input type="checkbox" onchange="updateTask(this)"> اكتشف 3 برديات
-                            </li>
-                        </ul>
                         
-                        <div class="mt-3">
-                            <button class="btn btn-gold w-100" onclick="claimReward()">
-                                <i class="fas fa-gift"></i> استلم مكافأة اليوم (٥٠ نقطة)
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">تعليق جديد على مشروعك</div>
+                                <div class="activity-time">منذ يوم</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card mt-4">
+                        <div class="dashboard-header">
+                            <h3 class="dashboard-title">الكورسات المستمرة</h3>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>تسويق رقمي</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>تطوير ويب</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>ذكاء اصطناعي</span>
+                                <span>30%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teacher Panel -->
+                <div class="col-lg-8" data-aos="fade-right">
+                    <div class="teacher-panel">
+                        <h3 class="mb-4">مرحبًا د. أحمد 👋</h3>
+                        
+                        <div class="teacher-stats">
+                            <div class="teacher-stat">
+                                <div class="teacher-stat-value">156</div>
+                                <div class="teacher-stat-label">طالب مسجل</div>
+                            </div>
+                            <div class="teacher-stat">
+                                <div class="teacher-stat-value">4</div>
+                                <div class="teacher-stat-label">كورسات نشطة</div>
+                            </div>
+                            <div class="teacher-stat">
+                                <div class="teacher-stat-value">89%</div>
+                                <div class="teacher-stat-label">رضا الطلاب</div>
+                            </div>
+                            <div class="teacher-stat">
+                                <div class="teacher-stat-value">23</div>
+                                <div class="teacher-stat-label">تقييم جديد</div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-3">أحدث تقييمات الطلاب</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-10 p-3 rounded-3">
+                                    <div class="d-flex gap-3">
+                                        <div class="instructor-avatar"></div>
+                                        <div>
+                                            <h6 class="mb-1">محمد علي</h6>
+                                            <div class="stars small mb-1">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <p class="small opacity-75">"شرح ممتاز ومحتوى رائع!"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-10 p-3 rounded-3">
+                                    <div class="d-flex gap-3">
+                                        <div class="instructor-avatar"></div>
+                                        <div>
+                                            <h6 class="mb-1">سارة أحمد</h6>
+                                            <div class="stars small mb-1">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                            <p class="small opacity-75">"استفدت كثيرًا، شكرًا لكم"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-light" onclick="openTeacherDashboard()">
+                                <i class="fas fa-chart-line"></i> لوحة التحكم الكاملة
                             </button>
                         </div>
                     </div>
+                    
+                    <!-- Recent Grades Table -->
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <h3 class="dashboard-title">آخر الدرجات</h3>
+                            <a href="#" class="dashboard-link">تصدير</a>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>الطالب</th>
+                                        <th>الكورس</th>
+                                        <th>الاختبار</th>
+                                        <th>الدرجة</th>
+                                        <th>الحالة</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gradesTable">
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="instructor-avatar"></div>
+                                                أحمد محمد
+                                            </div>
+                                        </td>
+                                        <td>تسويق رقمي</td>
+                                        <td>الوحدة الأولى</td>
+                                        <td>85%</td>
+                                        <td><span class="badge bg-success">ناجح</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="instructor-avatar"></div>
+                                                منى سامي
+                                            </div>
+                                        </td>
+                                        <td>تطوير ويب</td>
+                                        <td>مشروع منتصف الفصل</td>
+                                        <td>92%</td>
+                                        <td><span class="badge bg-success">ناجح</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="instructor-avatar"></div>
+                                                خالد عمر
+                                            </div>
+                                        </td>
+                                        <td>ذكاء اصطناعي</td>
+                                        <td>الاختبار النهائي</td>
+                                        <td>67%</td>
+                                        <td><span class="badge bg-warning">إعادة</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <div class="text-center mt-3">
-            <button class="btn btn-outline-light" onclick="closeStudentChamber()">
-                <i class="fas fa-arrow-left"></i> العودة إلى البوابة
-            </button>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-gradient p-5 rounded-4 text-center text-white" style="background: linear-gradient(135deg, var(--primary), var(--secondary));">
+                    <h2 class="display-4 fw-bold mb-3">ابدأ رحلة التعلم اليوم</h2>
+                    <p class="lead mb-4">انضم إلى آلاف الطلاب وابدأ في تطوير مهاراتك</p>
+                    <button class="btn btn-light btn-lg px-5" onclick="startLearning()">
+                        اشترك مجانًا <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Achievement Modal -->
-    <div class="modal fade" id="achievementModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-light">
-                <div class="modal-header border-gold">
-                    <h5 class="modal-title text-gold">🏆 إنجاز جديد!</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h3 class="navbar-brand mb-3">كنانة</h3>
+                    <p class="small opacity-75">منصة تعليمية عربية تهدف إلى تقديم محتوى تعليمي عالي الجودة باللغة العربية في مختلف المجالات.</p>
                 </div>
-                <div class="modal-body text-center">
-                    <i class="fas fa-crown fa-4x" style="color: var(--gold);"></i>
-                    <h4 class="mt-3" id="achievementTitle">لقد فتحت باب المعرفة</h4>
-                    <p id="achievementDesc">استمر في رحلتك أيها الكاتب العظيم</p>
+                
+                <div class="col-md-2">
+                    <h5>روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">عن المنصة</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">الكورسات</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">المعلمون</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">المدونة</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-2">
+                    <h5>الدعم</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">الأسئلة الشائعة</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">تواصل معنا</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">الشروط والأحكام</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">سياسة الخصوصية</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5>النشرة البريدية</h5>
+                    <p class="small opacity-75">اشترك لتصلك أحدث الكورسات والعروض</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="بريدك الإلكتروني">
+                        <button class="btn btn-primary">اشترك</button>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-white opacity-25">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="small opacity-75">© 2024 كنانة التعليمية. جميع الحقوق محفوظة</p>
+                </div>
+                <div class="col-md-6 text-md-start">
+                    <div class="d-flex gap-3 justify-content-md-end">
+                        <a href="#" class="text-white-50"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white-50"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white-50"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white-50"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تسجيل الدخول</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">دخول</button>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-center">
+                        <p>أو الدخول باستخدام</p>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button class="btn btn-outline-primary"><i class="fab fa-google"></i></button>
+                            <button class="btn btn-outline-primary"><i class="fab fa-facebook"></i></button>
+                            <button class="btn btn-outline-primary"><i class="fab fa-twitter"></i></button>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-gold" data-bs-dismiss="modal">تسلم الشارة</button>
+                    <p class="mb-0">ليس لديك حساب؟ <a href="#" onclick="openSignupModal()">اشترك الآن</a></p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إنشاء حساب جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">الاسم الأول</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">الاسم الأخير</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">تأكيد كلمة المرور</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms">
+                            <label class="form-check-label" for="terms">أوافق على الشروط والأحكام</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">اشترك الآن</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="mb-0">لديك حساب بالفعل؟ <a href="#" onclick="openLoginModal()">تسجيل الدخول</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">إشعار</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                تمت العملية بنجاح
             </div>
         </div>
     </div>
 
     <script>
-        // Loader
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('fade-out');
-                playBackgroundMusic();
-            }, 2000);
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
         });
 
-        // Sound Functions
-        let soundEnabled = true;
-        let musicPlaying = false;
-
-        function playBackgroundMusic() {
-            if (!soundEnabled) return;
-            const music = document.getElementById('backgroundMusic');
-            music.volume = 0.3;
-            music.play().catch(() => {});
-            musicPlaying = true;
-        }
-
-        function playSound(soundId) {
-            if (!soundEnabled) return;
-            const sound = document.getElementById(soundId);
-            sound.currentTime = 0;
-            sound.play().catch(() => {});
-        }
-
-        function toggleSound() {
-            soundEnabled = !soundEnabled;
-            const music = document.getElementById('backgroundMusic');
-            const toggle = document.getElementById('soundToggle');
-            
-            if (soundEnabled) {
-                music.play();
-                toggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-            } else {
-                music.pause();
-                toggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            }
-        }
-
-        // Portal Entry
-        function enterPortal() {
-            playSound('ankhSound');
-            document.body.style.animation = 'none';
-            setTimeout(() => {
-                document.body.style.animation = 'flicker 3s infinite';
-            }, 100);
-            
-            // Show message
-            alert("𓋴𓂋𓏏 مرحباً بك في عالم الأجداد... اكتشف بنفسك!");
-            
-            // Unlock first achievement
-            unlockAchievement('eye');
-        }
-
-        // Jump to Timeline
-        function jumpToYear(year) {
-            playSound('ankhSound');
-            const display = document.getElementById('yearDisplay');
-            const absYear = Math.abs(year);
-            display.innerText = absYear + (year < 0 ? ' ق.م' : ' م');
-            
-            if (year === -3100) {
-                unlockAchievement('star');
-            }
-        }
-
-        // Quiz Grading
-        function gradeQuiz() {
-            playSound('ankhSound');
-            
-            const q1 = document.querySelector('input[name="q1"]:checked');
-            const q2 = document.querySelector('input[name="q2"]:checked');
-            const q3 = document.querySelector('input[name="q3"]:checked');
-            
-            if (!q1 || !q2 || !q3) {
-                alert("يجب إجابة جميع الأسئلة أيها الكاتب!");
+        // Search Function
+        function searchCourses() {
+            const query = document.getElementById('searchInput').value;
+            if (query.trim() === '') {
+                showNotification('الرجاء إدخال كلمة للبحث');
                 return;
             }
             
-            let score = 0;
-            if (q1.value === 'correct') score += 33.33;
-            if (q2.value === 'correct') score += 33.33;
-            if (q3.value === 'correct') score += 33.34;
+            // Simulate search
+            showNotification(`جاري البحث عن: ${query}`);
             
-            const roundedScore = Math.round(score);
+            // Add loading animation to cards
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach(card => {
+                card.style.opacity = '0.5';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                }, 1000);
+            });
+        }
+
+        // Filter chips
+        const chips = document.querySelectorAll('.chip');
+        chips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                chips.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                showNotification(`تم التصفية حسب: ${this.textContent}`);
+            });
+        });
+
+        // Modal Functions
+        function openLoginModal() {
+            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
+        }
+
+        function openSignupModal() {
+            // Close login modal if open
+            const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            if (loginModal) {
+                loginModal.hide();
+            }
             
-            // Update knowledge level
-            document.getElementById('knowledgeLevel').style.width = roundedScore + '%';
-            document.getElementById('knowledgePercent').innerText = roundedScore + '%';
+            const signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+            signupModal.show();
+        }
+
+        function openTeacherDashboard() {
+            showNotification('جاري فتح لوحة تحكم المعلم...');
+            // Scroll to teacher panel
+            document.querySelector('.teacher-panel').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function startLearning() {
+            showNotification('تم تحويلك إلى صفحة التسجيل');
+            openSignupModal();
+        }
+
+        // Show Notification
+        function showNotification(message) {
+            const toastEl = document.getElementById('notificationToast');
+            document.getElementById('toastMessage').textContent = message;
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+
+        // Form Submissions
+        document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('تم تسجيل الدخول بنجاح! مرحباً بعودتك');
             
-            // Add to grade table
-            const tableBody = document.getElementById('gradeTableHologram');
-            const newRow = tableBody.insertRow(0);
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            modal.hide();
+        });
+
+        document.getElementById('signupForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check terms
+            if (!document.getElementById('terms').checked) {
+                showNotification('الرجاء الموافقة على الشروط والأحكام');
+                return;
+            }
+            
+            showNotification('تم إنشاء الحساب بنجاح! مرحباً بك في كنانة');
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('signupModal'));
+            modal.hide();
+        });
+
+        // Add Grade Function (for demonstration)
+        function addGrade(student, course, test, grade, status) {
+            const tableBody = document.getElementById('gradesTable');
+            const newRow = tableBody.insertRow();
             newRow.innerHTML = `
-                <td>كاتب مجتهد</td>
-                <td>اختبار الوزير</td>
-                <td><span class="badge" style="background: var(--gold); color: var(--lapis);">${roundedScore}%</span></td>
                 <td>
-                    <span class="badge" style="background: ${roundedScore >= 70 ? 'green' : 'red'};">
-                        ${roundedScore >= 70 ? 'ناجح' : 'حاول مرة أخرى'}
-                    </span>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="instructor-avatar"></div>
+                        ${student}
+                    </div>
                 </td>
-                <td><button class="btn btn-sm btn-outline-gold" onclick="rewardStudent()">🎁</button></td>
+                <td>${course}</td>
+                <td>${test}</td>
+                <td>${grade}</td>
+                <td><span class="badge bg-${status === 'ناجح' ? 'success' : 'warning'}">${status}</span></td>
             `;
             
-            if (roundedScore >= 70) {
-                unlockAchievement('scroll');
-                showAchievementModal('ناجح في اختبار الوزير', 'لقد أثبت جدارتك أيها الكاتب العظيم!');
-            }
+            showNotification('تم إضافة درجة جديدة');
         }
 
-        // Reward student
-        function rewardStudent() {
-            let points = parseInt(document.getElementById('studentPoints').innerText);
-            points += 25;
-            document.getElementById('studentPoints').innerText = points;
+        // Simulate real-time updates
+        setInterval(() => {
+            // Random grade update (for demonstration)
+            const grades = ['85%', '92%', '78%', '95%', '88%'];
+            const randomGrade = grades[Math.floor(Math.random() * grades.length)];
             
-            // Update progress
-            const progress = document.getElementById('studentProgress');
-            progress.style.width = Math.min(points / 2, 100) + '%';
-        }
+            // Update first row grade
+            const firstRow = document.querySelector('#gradesTable tr td:nth-child(4)');
+            if (firstRow) {
+                firstRow.textContent = randomGrade;
+            }
+        }, 10000); // Every 10 seconds
 
-        // Unlock achievement
-        function unlockAchievement(type) {
-            const badges = document.querySelectorAll('.achievement-badge');
-            badges.forEach(badge => {
-                if (badge.querySelector('i')?.classList.contains(`fa-${type}`)) {
-                    badge.setAttribute('data-unlocked', 'true');
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
-            
-            // Add to feed
-            const feed = document.getElementById('achievementFeed');
-            if (feed) {
-                const li = document.createElement('li');
-                li.className = 'list-group-item bg-transparent text-light';
-                li.innerText = '✦ كسبت شارة جديدة: ' + type;
-                feed.prepend(li);
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
             }
-        }
+        });
 
-        function showAchievementModal(title, desc) {
-            document.getElementById('achievementTitle').innerText = title;
-            document.getElementById('achievementDesc').innerText = desc;
-            const modal = new bootstrap.Modal(document.getElementById('achievementModal'));
-            modal.show();
-        }
+        // Lazy loading images
+        const images = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
 
-        // Show achievements
-        function showAchievements() {
-            let unlockedCount = 0;
-            const badges = document.querySelectorAll('.achievement-badge[data-unlocked="true"]');
-            unlockedCount = badges.length;
-            
-            alert(`لديك ${unlockedCount} من أصل 5 شارات مفتوحة. استمر في رحلتك!`);
-        }
+        images.forEach(img => imageObserver.observe(img));
 
-        // Teacher functions
-        function openTeacherThrone() {
-            playSound('ankhSound');
-            document.getElementById('teacherDash').style.display = 'block';
-            document.getElementById('portal').scrollIntoView({behavior: 'smooth'});
-            
-            // Load dummy chart if Chart.js is available
-            if (typeof Chart !== 'undefined') {
-                const ctx = document.getElementById('studentChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'اليوم'],
-                        datasets: [{
-                            label: 'مستوى الفهم',
-                            data: [30, 45, 60, 85],
-                            borderColor: 'var(--gold)',
-                            backgroundColor: 'rgba(255,215,0,0.1)'
-                        }]
-                    }
-                });
-            }
-        }
+        // Dynamic year in footer
+        document.querySelector('.current-year')?.textContent = new Date().getFullYear();
 
-        function closeTeacherThrone() {
-            document.getElementById('teacherDash').style.display = 'none';
-        }
-
-        function openStudentChamber() {
-            playSound('ankhSound');
-            document.getElementById('studentChamber').style.display = 'block';
-            document.getElementById('portal').scrollIntoView({behavior: 'smooth'});
-        }
-
-        function closeStudentChamber() {
-            document.getElementById('studentChamber').style.display = 'none';
-        }
-
-        // Task update
-        function updateTask(checkbox) {
-            if (checkbox.checked) {
-                rewardStudent();
-            }
-        }
-
-        function claimReward() {
-            let points = parseInt(document.getElementById('studentPoints').innerText);
-            points += 50;
-            document.getElementById('studentPoints').innerText = points;
-            
-            const progress = document.getElementById('studentProgress');
-            progress.style.width = Math.min(points / 2, 100) + '%';
-            
-            alert('تم إضافة 50 نقطة إلى رصيدك!');
-        }
-
-        // Initialize achievements list
-        function initAchievements() {
-            const list = document.getElementById('achievementsList');
-            if (list) {
-                list.innerHTML = `
-                    <div class="achievement-badge" data-unlocked="true">
-                        <i class="fas fa-eye"></i>
-                        <span class="badge-tooltip">عين حورس</span>
-                    </div>
-                    <div class="achievement-badge" data-unlocked="false">
-                        <i class="fas fa-star"></i>
-                        <span class="badge-tooltip">نجم الشمال</span>
-                    </div>
-                    <div class="achievement-badge" data-unlocked="false">
-                        <i class="fas fa-scroll"></i>
-                        <span class="badge-tooltip">كاتب البردي</span>
-                    </div>
-                    <div class="achievement-badge" data-unlocked="false">
-                        <i class="fas fa-crown"></i>
-                        <span class="badge-tooltip">تاج مصر</span>
-                    </div>
-                    <div class="achievement-badge" data-unlocked="false">
-                        <i class="fas fa-ankh"></i>
-                        <span class="badge-tooltip">مفتاح الحياة</span>
-                    </div>
-                `;
-            }
-        }
-
-        // Run init
-        initAchievements();
+        // Course enrollment buttons
+        document.querySelectorAll('.btn-enroll').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const course = this.closest('.course-card').querySelector('.course-title').textContent;
+                showNotification(`تم تسجيلك في كورس: ${course}`);
+                
+                // Change button text temporarily
+                const originalText = this.textContent;
+                this.textContent = 'تم التسجيل ✓';
+                this.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = 'var(--primary)';
+                }, 2000);
+            });
+        });
     </script>
 
-    <!-- Bootstrap and Chart.js -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
 </html>
