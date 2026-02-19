@@ -3,77 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduFlix | منصة الدراسات الاجتماعية</title>
+    <title>منصة الكنانة التعليمية | مهد الحضارات</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        :root {
+            --pharaoh-gold: #D4AF37;
+            --royal-blue: #002366;
+            --papyrus-bg: #f2e8c4;
+            --dark-stone: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--dark-stone);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            background-image: url('https://www.transparenttextures.com/patterns/black-linen.png'); /* تأثير ملمس الحجر */
+        }
+
+        h1, h2, .navbar-brand {
+            font-family: 'Amiri', serif;
+            color: var(--pharaoh-gold) !important;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: rgba(0, 35, 102, 0.95) !important;
+            border-bottom: 3px solid var(--pharaoh-gold);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 5px double var(--pharaoh-gold);
+        }
+
+        /* --- Lesson Cards --- */
+        .section-title {
+            padding: 20px 50px;
+            border-right: 5px solid var(--pharaoh-gold);
+            margin: 30px 0;
+            background: linear-gradient(90deg, rgba(212,175,55,0.1), transparent);
+        }
+
+        .lesson-card {
+            background: #222;
+            border: 1px solid #444;
+            transition: 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card:hover {
+            border-color: var(--pharaoh-gold);
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .lesson-card img {
+            filter: sepia(30%);
+        }
+
+        /* --- Quiz Section (The Papyrus) --- */
+        .quiz-container {
+            background: var(--papyrus-bg);
+            color: #333;
+            padding: 30px;
+            border-radius: 5px;
+            border: 15px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/gplay.png') 30 stretch;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.2);
+        }
+
+        .btn-gold {
+            background: var(--pharaoh-gold);
+            color: var(--royal-blue);
+            font-weight: bold;
+            border: none;
+        }
+
+        /* --- Grades Table --- */
+        .grade-badge {
+            background: var(--royal-blue);
+            color: var(--pharaoh-gold);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--pharaoh-gold);
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">EduFlix <i class="fas fa-book-atlas"></i></a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">التاريخ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">الجغرافيا</a></li>
-                </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-ankh"></i> منصة الكنانة</a>
+            <div class="ms-auto text-light">
+                <span id="teacher-view" class="btn btn-sm btn-outline-warning">لوحة المعلم</span>
             </div>
         </div>
     </nav>
 
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>عصر القوة: الفراعنة</h1>
-            <p>شاهد أروع الشروحات عن تاريخ مصر القديم بأسلوب سينمائي ممتع.</p>
-            <button class="btn btn-light fw-bold px-4 py-2"><i class="fas fa-play ms-2"></i> ابدأ المشاهدة</button>
+    <header class="hero">
+        <div class="container">
+            <h1 class="display-2">اسرار الأجداد</h1>
+            <p class="lead">استكشف حضارة ٧٠٠٠ عام بأسلوب القرن الحادي والعشرين</p>
+            <a href="#lessons" class="btn btn-gold btn-lg mt-3">ابدأ الرحلة الآن</a>
         </div>
-    </section>
+    </header>
 
-    <h4 class="row-title">مغامرات في التاريخ</h4>
-    <div class="netflix-row">
-        <div class="lesson-card">
-            <img src="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=400&q=80" alt="History">
-            <div class="lesson-info">
-                <div class="lesson-title">سر بناء الهرم الأكبر</div>
-                <div class="lesson-meta">30 دقيقة</div>
+    <div class="container mt-5" id="lessons">
+        <h2 class="section-title">مكتبة البرديات (الدروس)</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card lesson-card">
+                    <img src="https://images.unsplash.com/photo-1539130545229-23136666993a?w=400" class="card-img-top">
+                    <div class="card-body text-center">
+                        <h6>عظمة بناة الأهرام</h6>
+                        <small class="text-muted">تاريخ - الصف الأول</small>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="lesson-card">
-            <img src="https://images.unsplash.com/photo-1539130545229-23136666993a?auto=format&fit=crop&w=400&q=80" alt="History">
-            <div class="lesson-info">
-                <div class="lesson-title">الملكة حتشبسوت</div>
-                <div class="lesson-meta">25 دقيقة</div>
+            <div class="col-md-3">
+                <div class="card lesson-card">
+                    <img src="https://images.unsplash.com/photo-1599933334297-51644b4e5433?w=400" class="card-img-top">
+                    <div class="card-body text-center">
+                        <h6>نهر النيل: شريان الحياة</h6>
+                        <small class="text-muted">جغرافيا - الصف الثاني</small>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="lesson-card">
-            <img src="https://images.unsplash.com/photo-1553913861-c0fddf2619ee?auto=format&fit=crop&w=400&q=80" alt="History">
-            <div class="lesson-info">
-                <div class="lesson-title">الحرب والسلام (رمسيس)</div>
-                <div class="lesson-meta">40 دقيقة</div>
             </div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <h2 class="section-title">اختبار ريشة "ماعت" (التقييم)</h2>
+        <div class="quiz-container">
+            <h4 class="mb-4 text-center">أثبت جدارتك يا كاتب المستقبل</h4>
+            <form id="pharaohQuiz">
+                <div class="mb-4">
+                    <label class="fw-bold">١. من هو الملك الذي وحد القطرين؟</label><br>
+                    <input type="radio" name="q1" value="no"> رمسيس 
+                    <input type="radio" name="q1" value="yes" class="ms-3"> مينا (نعرمر)
+                    <input type="radio" name="q1" value="no" class="ms-3"> تحتمس
+                </div>
+                <div class="mb-4">
+                    <label class="fw-bold">٢. أي من هذه المحافظات تطل على البحر الأحمر؟</label><br>
+                    <input type="radio" name="q2" value="yes"> الغردقة 
+                    <input type="radio" name="q2" value="no" class="ms-3"> القاهرة
+                    <input type="radio" name="q2" value="no" class="ms-3"> المنيا
+                </div>
+                <button type="button" class="btn btn-gold w-100" onclick="submitExam()">تسجيل النتيجة في السجل الملكي</button>
+            </form>
         </div>
     </div>
 
-    <h4 class="row-title">جغرافيا الوطن العربي</h4>
-    <div class="netflix-row">
-        <div class="lesson-card">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80" alt="Geography">
-            <div class="lesson-info">
-                <div class="lesson-title">الموارد المائية</div>
-                <div class="lesson-meta">20 دقيقة</div>
-            </div>
-        </div>
-        <div class="lesson-card">
-            <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=400&q=80" alt="Geography">
-            <div class="lesson-info">
-                <div class="lesson-title">المناخ والنبات الطبيعي</div>
-                <div class="lesson-meta">15 دقيقة</div>
-            </div>
+    <div class="container mb-5">
+        <h2 class="section-title">سجل رصد الدرجات (للمعلم والطالب)</h2>
+        <div class="table-responsive bg-dark p-3 rounded border border-warning">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>اسم الطالب</th>
+                        <th>الاختبار</th>
+                        <th>الدرجة</th>
+                        <th>الحالة</th>
+                    </tr>
+                </thead>
+                <tbody id="gradeTable">
+                    </tbody>
+            </table>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function submitExam() {
+            let score = 0;
+            let q1 = document.querySelector('input[name="q1"]:checked');
+            let q2 = document.querySelector('input[name="q2"]:checked');
+
+            if(!q1 || !q2) {
+                alert("برجاء الإجابة على جميع الأسئلة يا بطل!");
+                return;
+            }
+
+            if(q1.value === "yes") score += 50;
+            if(q2.value === "yes") score += 50;
+
+            // رصد الدرجة فوراً في الجدول
+            const table = document.getElementById('gradeTable');
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td>طالب مجتهد</td>
+                <td>اختبار الدراسات الشامل</td>
+                <td><span class="grade-badge">${score}%</span></td>
+                <td>${score >= 50 ? '✅ ناجح' : '❌ أعد المحاولة'}</td>
+            `;
+
+            alert("تم رصد درجتك بنجاح في سجلات المعبد!");
+        }
+    </script>
+
 </body>
 </html>
