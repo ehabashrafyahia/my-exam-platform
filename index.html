@@ -1,304 +1,165 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كنانة للمواد الأدبية | التاريخ والجغرافيا</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary: #8b4513; /* لون بني تاريخي */
-            --primary-dark: #5d2e0d;
-            --secondary: #2e8b57; /* لون أخضر جغرافي */
-            --white: #ffffff;
-            --gray-100: #fdfaf5; /* لون ورق قديم */
-            --gray-200: #eaddca;
-            --text-main: #3e2723;
-            --glass-bg: rgba(255, 255, 255, 0.95);
-        }
+<meta charset="UTF-8">
+<title>ورقة امتحان</title>
 
-        [data-theme="dark"] {
-            --white: #1a120b;
-            --gray-100: #2c1e11;
-            --gray-200: #3e2c1c;
-            --text-main: #d7ccc8;
-            --glass-bg: rgba(26, 18, 11, 0.9);
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--gray-100);
-            color: var(--text-main);
-            transition: all 0.3s ease;
-        }
+body{
+    font-family: 'Cairo', sans-serif;
+    background:#f4f4f4;
+    margin:0;
+    padding:0;
+}
 
-        /* Navbar */
-        .navbar {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
+.exam-container{
+    width: 210mm;
+    min-height: 297mm;
+    background:white;
+    margin:20px auto;
+    padding:30px;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+    border:3px solid #000;
+}
 
-        .navbar-brand {
-            font-weight: 900;
-            font-size: 1.8rem;
-            color: var(--primary) !important;
-        }
+.header{
+    text-align:center;
+    border-bottom:2px solid #000;
+    padding-bottom:10px;
+    margin-bottom:20px;
+}
 
-        /* Hero Section */
-        .hero {
-            padding: 140px 0 100px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=1200');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            clip-path: ellipse(150% 100% at 50% 0%);
-        }
+.header h1{
+    margin:0;
+    font-size:28px;
+    font-weight:900;
+}
 
-        /* Category Chips */
-        .grade-filter {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 10px 0;
-            scrollbar-width: none;
-        }
-        .grade-chip {
-            padding: 8px 20px;
-            background: var(--white);
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: 0.3s;
-            font-weight: 600;
-        }
-        .grade-chip.active, .grade-chip:hover {
-            background: var(--primary);
-            color: white;
-        }
+.header h2{
+    margin:5px 0;
+    font-size:20px;
+}
 
-        /* Cards */
-        .course-card {
-            background: var(--white);
-            border-radius: 15px;
-            border: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-        .course-card:hover { transform: translateY(-5px); }
+.student-info{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    font-weight:bold;
+}
 
-        .icon-box {
-            width: 50px;
-            height: 50px;
-            background: var(--gray-200);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.5rem;
-        }
+.line{
+    border-bottom:1px solid #000;
+    width:200px;
+    display:inline-block;
+}
 
-        #theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-    </style>
+.instructions{
+    background:#f1f1f1;
+    padding:10px;
+    border-right:5px solid #000;
+    margin-bottom:20px;
+    font-size:14px;
+}
+
+.question{
+    margin-bottom:25px;
+    font-size:16px;
+}
+
+.options{
+    margin-top:10px;
+}
+
+.options div{
+    margin:6px 0;
+}
+
+.essay-box{
+    border:1px solid #000;
+    height:150px;
+    margin-top:10px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:30px;
+    font-weight:bold;
+}
+
+@media print {
+    body{
+        background:white;
+    }
+    .exam-container{
+        box-shadow:none;
+        margin:0;
+        border:2px solid #000;
+    }
+}
+</style>
+
 </head>
+
 <body>
 
-    <button id="theme-toggle" class="btn btn-primary shadow-lg">
-        <i class="fas fa-moon"></i>
-    </button>
+<div class="exam-container">
 
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="fas fa-atlas"></i> كنانة الأدبية</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#courses">الدروس</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#map">خرائط تفاعلية</a></li>
-                </ul>
-            </div>
+<div class="header">
+    <h1>ورقة امتحان نهاية الفصل الدراسي</h1>
+    <h2>مادة الدراسات الاجتماعية</h2>
+    <p>الأستاذ / ........................................</p>
+</div>
+
+<div class="student-info">
+    <div>اسم الطالب: <span class="line"></span></div>
+    <div>الصف: <span class="line"></span></div>
+    <div>الدرجة: <span class="line"></span></div>
+</div>
+
+<div class="instructions">
+    تعليمات هامة: اقرأ الأسئلة جيدًا قبل الإجابة – الإجابة بالقلم الأزرق – يمنع استخدام الهاتف – الزمن ساعتان.
+</div>
+
+<div class="question">
+    <strong>السؤال الأول: اختر الإجابة الصحيحة:</strong>
+
+    <div class="options">
+        <div>1) قامت حضارة العراق على:
+            <div>a) الصناعة</div>
+            <div>b) التجارة</div>
+            <div>c) الزراعة</div>
+            <div>d) الرعي</div>
         </div>
-    </nav>
 
-    <section class="hero text-center">
-        <div class="container" data-aos="fade-up">
-            <h1 class="display-4 fw-bold">رحلة عبر الزمن والجغرافيا</h1>
-            <p class="lead">اكتشف حضارات العالم وتضاريس الأرض مع أقوى المناهج التعليمية</p>
+        <div style="margin-top:15px;">
+        2) من عوامل قيام الحضارات:
+            <div>a) المناخ المعتدل</div>
+            <div>b) الموارد المائية</div>
+            <div>c) الموقع الجغرافي</div>
+            <div>d) جميع ما سبق</div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section class="container mt-n5" style="margin-top: -40px;">
-        <div class="card p-4 shadow-lg border-0 rounded-4 mb-5">
-            <div class="row align-items-center">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h6 class="fw-bold mb-2">اختر الصف الدراسي:</h6>
-                    <div class="grade-filter">
-                        <span class="grade-chip active">الكل</span>
-                        <span class="grade-chip">الأول الثانوي</span>
-                        <span class="grade-chip">الثاني الثانوي</span>
-                        <span class="grade-chip">الثالث الثانوي</span>
-                        <span class="grade-chip">الإعدادي</span>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="input-group">
-                        <span class="input-group-text bg-transparent border-end-0"><i class="fas fa-search text-muted"></i></span>
-                        <input type="text" id="searchInput" class="form-control form-control-lg border-start-0 shadow-none" placeholder="ابحث عن درس (مثلاً: محمد علي، هضبة التبت)...">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="question">
+    <strong>السؤال الثاني: بم تفسر؟</strong>
+    <p>يصعب الاستفادة من الأنهار التي تجري في شمال قارة آسيا طوال العام.</p>
+    <div class="essay-box"></div>
+</div>
 
-    <section id="courses" class="container">
-        <div class="row g-4" id="courseGrid">
-            
-            <div class="col-md-4 course-item" data-category="تاريخ">
-                <div class="course-card h-100 overflow-hidden">
-                    <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=400" class="w-100" style="height: 200px; object-fit: cover;">
-                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">تاريخ</span>
-                    </div>
-                    <div class="p-4">
-                        <h5 class="course-title fw-bold">حضارة مصر القديمة</h5>
-                        <p class="small text-muted">استكشاف عصر بناء الأهرامات وأسرار الفراعنة.</p>
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <i class="fas fa-layer-group text-primary"></i>
-                            <span class="small">الصف الأول الثانوي</span>
-                        </div>
-                        <button class="btn btn-primary w-100">ابدأ الدرس الآن</button>
-                    </div>
-                </div>
-            </div>
+<div class="question">
+    <strong>السؤال الثالث: سؤال مقالي:</strong>
+    <p>اكتب موضوعًا عن عوامل قيام الحضارات.</p>
+    <div class="essay-box"></div>
+</div>
 
-            <div class="col-md-4 course-item" data-category="جغرافيا">
-                <div class="course-card h-100 overflow-hidden">
-                    <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=400" class="w-100" style="height: 200px; object-fit: cover;">
-                        <span class="badge bg-success position-absolute top-0 end-0 m-3">جغرافيا</span>
-                    </div>
-                    <div class="p-4">
-                        <h5 class="course-title fw-bold">تضاريس قارات العالم</h5>
-                        <p class="small text-muted">دراسة الجبال، الهضاب والسهول في السبع قارات.</p>
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <i class="fas fa-layer-group text-primary"></i>
-                            <span class="small">الصف الثالث الثانوي</span>
-                        </div>
-                        <button class="btn btn-primary w-100">ابدأ الدرس الآن</button>
-                    </div>
-                </div>
-            </div>
+<div class="footer">
+    مع أطيب التمنيات بالتوفيق والنجاح 🌟
+</div>
 
-            <div class="col-md-4 course-item" data-category="تاريخ">
-                <div class="course-card h-100 overflow-hidden">
-                    <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1551041777-ed0763a1d68d?w=400" class="w-100" style="height: 200px; object-fit: cover;">
-                        <span class="badge bg-danger position-absolute top-0 end-0 m-3">تاريخ</span>
-                    </div>
-                    <div class="p-4">
-                        <h5 class="course-title fw-bold">الثورة الصناعية</h5>
-                        <p class="small text-muted">كيف تغير وجه العالم في القرن الثامن عشر؟</p>
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <i class="fas fa-layer-group text-primary"></i>
-                            <span class="small">الصف الثاني الثانوي</span>
-                        </div>
-                        <button class="btn btn-primary w-100">ابدأ الدرس الآن</button>
-                    </div>
-                </div>
-            </div>
+</div>
 
-        </div>
-    </section>
-
-    <section class="container my-5 py-5 border-top">
-        <div class="row align-items-center">
-            <div class="col-md-6" data-aos="fade-left">
-                <h2 class="fw-bold mb-4">أدوات التعلم التفاعلية</h2>
-                <div class="d-flex gap-4 mb-3">
-                    <div class="icon-box"><i class="fas fa-map-marked-alt"></i></div>
-                    <div>
-                        <h6 class="fw-bold">خرائط صماء تفاعلية</h6>
-                        <p class="small text-muted">تدرب على تحديد المواقع الجغرافية بنفسك.</p>
-                    </div>
-                </div>
-                <div class="d-flex gap-4 mb-3">
-                    <div class="icon-box"><i class="fas fa-hourglass-half"></i></div>
-                    <div>
-                        <h6 class="fw-bold">خطوط زمنية ذكية</h6>
-                        <p class="small text-muted">اربط الأحداث التاريخية بتسلسلها الزمني الصحيح.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" data-aos="fade-right">
-                <img src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=500" class="img-fluid rounded-4 shadow">
-            </div>
-        </div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script>
-        AOS.init();
-
-        // Dark Mode
-        const themeBtn = document.getElementById('theme-toggle');
-        themeBtn.addEventListener('click', () => {
-            const html = document.documentElement;
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.removeAttribute('data-theme');
-                themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-        });
-
-        // Search & Filter
-        const searchInput = document.getElementById('searchInput');
-        const chips = document.querySelectorAll('.grade-chip');
-
-        function filterCourses() {
-            const term = searchInput.value.toLowerCase();
-            const activeGrade = document.querySelector('.grade-chip.active').innerText;
-            const courses = document.querySelectorAll('.course-item');
-
-            courses.forEach(course => {
-                const title = course.querySelector('.course-title').innerText.toLowerCase();
-                const grade = course.querySelector('.small').innerText;
-                
-                const matchesSearch = title.includes(term);
-                const matchesGrade = activeGrade === 'الكل' || grade.includes(activeGrade);
-
-                course.style.display = (matchesSearch && matchesGrade) ? 'block' : 'none';
-            });
-        }
-
-        searchInput.addEventListener('input', filterCourses);
-        chips.forEach(chip => {
-            chip.addEventListener('click', () => {
-                chips.forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                filterCourses();
-            });
-        });
-    </script>
 </body>
 </html>
